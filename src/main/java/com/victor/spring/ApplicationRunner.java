@@ -1,23 +1,18 @@
 package com.victor.spring;
 
-import com.victor.spring.ioc.Container;
-import com.victor.spring.service.UserService;
+import com.victor.spring.database.pool.ConnectionPool;
+import com.victor.spring.database.repository.CompanyRepository;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ApplicationRunner {
 
     public static void main(String[] args) {
-        var container = new Container();
+        var context = new ClassPathXmlApplicationContext("application.xml");
 
-//        var connectionPool = new ConnectionPool();
-//        var userRepository = new UserRepository(connectionPool);
-//        var companyRepository = new CompanyRepository(connectionPool);
-//        var userService = new UserService(userRepository, companyRepository);
+        ConnectionPool pool = context.getBean("p1", ConnectionPool.class);
+        System.out.println(pool);
 
-//        var connectionPool = container.get(ConnectionPool.class);
-//        var userRepository = container.get(UserRepository.class);
-//        var companyRepository = container.get(CompanyRepository.class);
-
-        var userService = container.get(UserService.class);
-        // TODO: 14.11.2021 userService 
+        var companyRepository = context.getBean("companyRepository", CompanyRepository.class);
+        System.out.println(companyRepository);
     }
 }
