@@ -1,7 +1,7 @@
 package com.victor.spring;
 
 import com.victor.spring.database.pool.ConnectionPool;
-import com.victor.spring.database.repository.CompanyRepository;
+import com.victor.spring.database.repository.CrudRepository;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ApplicationRunner {
@@ -12,8 +12,8 @@ public class ApplicationRunner {
             ConnectionPool pool = context.getBean("p1", ConnectionPool.class);
             System.out.println(pool);
 
-            var companyRepository = context.getBean("companyRepository", CompanyRepository.class);
-            System.out.println(companyRepository);
+            var companyRepository = context.getBean("companyRepository", CrudRepository.class);
+            System.out.println(companyRepository.findById(1));
         }
     }
 }
