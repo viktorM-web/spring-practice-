@@ -1,35 +1,38 @@
 package com.victor.spring.database.repository;
 
 import com.victor.spring.bpp.Auditing;
-import com.victor.spring.bpp.InjectBean;
 import com.victor.spring.bpp.Transaction;
 import com.victor.spring.database.entity.Company;
 import com.victor.spring.database.pool.ConnectionPool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-//    @Resource(name="poll1")
+    private final ConnectionPool pool1;
+    private final List<ConnectionPool> pools;
+    private final Integer size;
 
-//    @Autowired
-//    @Qualifier("pool1")
-    private ConnectionPool pool1;
-    @Autowired
-    private List<ConnectionPool> pools;
-    @Value("${db.pool.size}")
-    private Integer size;
+    public CompanyRepository(ConnectionPool pool1,
+                             List<ConnectionPool> pools,
+                             @Value("${db.pool.size}") Integer size) {
+        this.pool1 = pool1;
+        this.pools = pools;
+        this.size = size;
+    }
 
     @PostConstruct
     private void init() {
         System.out.println("init company repository");
     }
+
     @Override
     public Optional<Company> findById(Integer id) {
         System.out.println("findById method ...");
@@ -39,10 +42,5 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
     @Override
     public void delete(Company entity) {
         System.out.println("delete method ...");
-    }
-
-    @Autowired
-    public void setPool1(ConnectionPool pool1) {
-        this.pool1 = pool1;
     }
 }
