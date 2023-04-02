@@ -13,16 +13,17 @@
 <!--        <property name="locations" value="classpath:application.properties"/>-->
 <!--    </bean>-->
 
+    <context:annotation-config/>
+
+<!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
+
     <bean class="com.victor.spring.bfpp.LogBeanFactoryPostProcessor"/>
     <bean class="com.victor.spring.bfpp.VerifyPropertiesBeanFactoryPostProcessor"/>
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="postgresDriver"/>
     </bean>
 
-    <bean id="pool1" name="p1,p2,p3" class="com.victor.spring.database.pool.ConnectionPool"
-          init-method="init"
-          destroy-method="destroy"
-          scope="singleton">
+    <bean id="pool1" name="p1,p2,p3" class="com.victor.spring.database.pool.ConnectionPool">
         <constructor-arg name="username" type="java.lang.String" value="${db.username}"/>
         <constructor-arg name="poolSize" type="java.lang.Integer" value="${db.pool.size}"/>
         <constructor-arg name="args" type="java.util.List">

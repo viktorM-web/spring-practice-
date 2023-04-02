@@ -1,2 +1,2 @@
 # spring-starter
-work with xml
+work with xml and annotation based
