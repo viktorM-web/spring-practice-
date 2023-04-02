@@ -6,6 +6,7 @@ import com.victor.spring.bpp.Transaction;
 import com.victor.spring.database.entity.Company;
 import com.victor.spring.database.pool.ConnectionPool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -22,6 +23,8 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
     private ConnectionPool pool1;
     @Autowired
     private List<ConnectionPool> pools;
+    @Value("${db.pool.size}")
+    private Integer size;
 
     @PostConstruct
     private void init() {
