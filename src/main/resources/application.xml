@@ -26,7 +26,8 @@
         <constructor-arg type="java.lang.String" value="postgresDriver"/>
     </bean>
 
-    <bean id="pool1" name="p1,p2,p3" class="com.victor.spring.database.pool.ConnectionPool">
+    <bean id="pool1" name="p1,p2,p3" class="com.victor.spring.database.pool.ConnectionPool"/>
+    <bean id="pool2" name="p4" class="com.victor.spring.database.pool.ConnectionPool">
         <constructor-arg name="username" type="java.lang.String" value="${db.username}"/>
         <constructor-arg name="poolSize" type="java.lang.Integer" value="${db.pool.size}"/>
         <constructor-arg name="args" type="java.util.List">

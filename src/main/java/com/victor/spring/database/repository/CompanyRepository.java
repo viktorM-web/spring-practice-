@@ -5,16 +5,23 @@ import com.victor.spring.bpp.InjectBean;
 import com.victor.spring.bpp.Transaction;
 import com.victor.spring.database.entity.Company;
 import com.victor.spring.database.pool.ConnectionPool;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Optional;
 
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    @InjectBean
-    private ConnectionPool connectionPool;
+//    @Resource(name="poll1")
+
+//    @Autowired
+//    @Qualifier("pool1")
+    private ConnectionPool pool1;
+    @Autowired
+    private List<ConnectionPool> pools;
 
     @PostConstruct
     private void init() {
@@ -29,5 +36,10 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
     @Override
     public void delete(Company entity) {
         System.out.println("delete method ...");
+    }
+
+    @Autowired
+    public void setPool1(ConnectionPool pool1) {
+        this.pool1 = pool1;
     }
 }
