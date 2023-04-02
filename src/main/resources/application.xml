@@ -13,6 +13,8 @@
 <!--        <property name="locations" value="classpath:application.properties"/>-->
 <!--    </bean>-->
 
+    <bean class="com.victor.spring.bfpp.LogBeanFactoryPostProcessor"/>
+    <bean class="com.victor.spring.bfpp.VerifyPropertiesBeanFactoryPostProcessor"/>
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="postgresDriver"/>
     </bean>
