@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
+@Repository
 @Scope(SCOPE_PROTOTYPE)
 @Transaction
 @Auditing
