@@ -4,6 +4,7 @@ import com.victor.spring.bpp.Auditing;
 import com.victor.spring.bpp.Transaction;
 import com.victor.spring.database.entity.Company;
 import com.victor.spring.database.pool.ConnectionPool;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -17,19 +18,13 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROT
 @Scope(SCOPE_PROTOTYPE)
 @Transaction
 @Auditing
+@RequiredArgsConstructor
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     private final ConnectionPool pool1;
     private final List<ConnectionPool> pools;
+    @Value("${db.pool.size}")
     private final Integer size;
-
-    public CompanyRepository(ConnectionPool pool1,
-                             List<ConnectionPool> pools,
-                             @Value("${db.pool.size}") Integer size) {
-        this.pool1 = pool1;
-        this.pools = pools;
-        this.size = size;
-    }
 
     @PostConstruct
     private void init() {
