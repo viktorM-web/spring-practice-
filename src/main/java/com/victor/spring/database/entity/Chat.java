@@ -14,8 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -23,20 +26,17 @@ import java.util.Map;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "company")
-public class Company implements BaseEntity<Integer> {
+@Table(name = "chat")
+public class Chat implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String name;
 
     @Builder.Default
-    @ElementCollection
-    @CollectionTable(name = "company_locales", joinColumns = @JoinColumn(name = "company_id"))
-    @MapKeyColumn(name = "lang")
-    @Column(name = "description")
-    private Map<String,String> locales = new HashMap<>();
+    @OneToMany(mappedBy = "chat")
+    private List<UserChat> userChat = new ArrayList<>();
 }

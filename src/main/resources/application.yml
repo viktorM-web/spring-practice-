@@ -20,11 +20,27 @@ db:
       timeout: 3
 
 spring.profiles.active: qa
+
 logging:
-  level:
-    root: WARN
-    com.victor.spring.database.pool.ConnectionPool: INFO
-  file:
-    name: viktor.log
-    path: /
+    level:
+      root: INFO
+      com.victor.spring.database.pool.ConnectionPool: INFO
+    file:
+      name: viktor.log
+      path: /
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties.hibernate:
+        show_sql: true
+        format_sql: true
+        hbm2ddl.auto: validate
 
