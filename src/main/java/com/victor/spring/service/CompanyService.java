@@ -7,6 +7,7 @@ import com.victor.spring.listner.entity.EntityEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public class CompanyService {
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;
 
+    @Transactional
     public Optional<CompanyReadDto> findById(Integer id){
         return companyRepository.findById(id)
                 .map(entity ->{
