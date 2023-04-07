@@ -24,4 +24,7 @@ logging:
   level:
     root: WARN
     com.victor.spring.database.pool.ConnectionPool: INFO
+  file:
+    name: viktor.log
+    path: /
 
