@@ -5,6 +5,7 @@ import com.victor.spring.bpp.Transaction;
 import com.victor.spring.database.entity.Company;
 import com.victor.spring.database.pool.ConnectionPool;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
+@Slf4j
 @Repository
 @Scope(SCOPE_PROTOTYPE)
 @Transaction
@@ -29,7 +31,7 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     @PostConstruct
     private void init() {
-        System.out.println("init company repository");
+        log.warn("init company repository");
     }
 
     @Override
