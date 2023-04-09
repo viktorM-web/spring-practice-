@@ -1,7 +1,6 @@
 package com.victor.spring.service;
 
-import com.victor.spring.database.entity.Company;
-import com.victor.spring.database.repository.CrudRepository;
+import com.victor.spring.database.repository.CompanyRepository;
 import com.victor.spring.dto.CompanyReadDto;
 import com.victor.spring.listner.entity.EntityEvent;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ import static com.victor.spring.listner.entity.AccessType.READ;
 @RequiredArgsConstructor
 public class CompanyService {
 
-    private final CrudRepository<Integer, Company> companyRepository;
+    private final CompanyRepository companyRepository;
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;
 
