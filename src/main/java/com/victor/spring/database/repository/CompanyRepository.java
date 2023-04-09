@@ -1,12 +1,12 @@
 package com.victor.spring.database.repository;
 
-import com.victor.spring.database.pool.ConnectionPool;
+import com.victor.spring.database.entity.Company;
+import org.springframework.data.repository.Repository;
 
-public class CompanyRepository {
+import java.util.Optional;
+public interface CompanyRepository extends Repository<Company, Integer> {
 
-    private final ConnectionPool connectionPool;
+    Optional<Company> findById(Integer id);
 
-    public CompanyRepository(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
-    }
+    void delete(Company entity);
 }
