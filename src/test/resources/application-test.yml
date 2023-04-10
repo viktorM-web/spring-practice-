@@ -2,3 +2,7 @@ db:
   username: test
   password: test
 
+  jpa:
+  output:
+    ansi:
+      enabled: always
