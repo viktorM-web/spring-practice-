@@ -1,18 +1,18 @@
 package com.victor.spring.database.repository;
 
-import com.victor.spring.database.pool.ConnectionPool;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
+import com.victor.spring.database.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
+import java.util.List;
 
-@Scope(SCOPE_PROTOTYPE)
-@Repository
-@RequiredArgsConstructor
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Qualifier("pool2")
-    private final ConnectionPool connectionPool;
+    @Query("select u from User u " +
+           "where u.firstname like %:firstname% and u.lastname like %:lastname%")
+    List<User> findAllBy(String firstname, String lastname);
+
+    @Query(nativeQuery = true,
+            value = "SELECT u.* FROM users u WHERE u.username = :username")
+    List<User> findAllByUsername(String username);
 }
