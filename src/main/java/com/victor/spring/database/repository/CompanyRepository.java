@@ -1,12 +1,15 @@
 package com.victor.spring.database.repository;
 
-import com.victor.spring.database.pool.ConnectionPool;
+import com.victor.spring.database.entity.Company;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class CompanyRepository {
+import java.util.List;
+import java.util.Optional;
+public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
-    private final ConnectionPool connectionPool;
+    //optional, Entity, Future
+    Optional<Company> findByName(String name);
 
-    public CompanyRepository(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
-    }
+    //Collection, Stream(batch, close)
+    List<Company> findAllByNameContainingIgnoreCase(String fragment);
 }
