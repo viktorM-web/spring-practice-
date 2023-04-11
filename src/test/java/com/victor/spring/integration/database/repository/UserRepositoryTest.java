@@ -3,9 +3,8 @@ package com.victor.spring.integration.database.repository;
 import com.victor.spring.database.entity.Role;
 import com.victor.spring.database.entity.User;
 import com.victor.spring.database.repository.UserRepository;
-import com.victor.spring.dto.PersonalInfo;
 import com.victor.spring.dto.UserFilter;
-import com.victor.spring.integration.annotation.IT;
+import com.victor.spring.integration.IntegrationTestBase;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
@@ -21,9 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@IT
 @RequiredArgsConstructor
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationTestBase {
 
     private final UserRepository userRepository;
 
