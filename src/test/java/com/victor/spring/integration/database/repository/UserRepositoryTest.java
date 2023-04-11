@@ -37,9 +37,9 @@ class UserRepositoryTest {
 
     @Test
     void checkCustomImpl(){
-        var filter = new UserFilter(null, "%ov%", LocalDate.now());
+        var filter = new UserFilter(null, "ov", LocalDate.now());
         var users = userRepository.findAllByFilter(filter);
-        System.out.println();
+        assertThat(users).hasSize(4);
     }
 
     @Test
