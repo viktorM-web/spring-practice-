@@ -2,7 +2,10 @@ db:
   username: test
   password: test
 
+spring:
   jpa:
-  output:
-    ansi:
-      enabled: always
+    properties.hibernate:
+      hbm2ddl.auto: update
+      output:
+        ansi:
+          enabled: always
