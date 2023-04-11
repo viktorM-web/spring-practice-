@@ -2,10 +2,10 @@ package com.victor.spring.database.repository;
 
 import com.victor.spring.database.entity.Role;
 import com.victor.spring.database.entity.User;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import com.victor.spring.dto.PersonalInfo;
+import com.victor.spring.dto.PersonalInfo2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,13 +32,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
            "where  u.id in (:ids)")
     int updateRole(Role role, Long... ids);
 
-        Optional<User> findTopByOrderByIdDesc();
+    Optional<User> findTopByOrderByIdDesc();
 
-        List<User> findTop3ByBirthDateBefore(LocalDate birthDate, Sort sort);
+    List<User> findTop3ByBirthDateBefore(LocalDate birthDate, Sort sort);
 
-//        @EntityGraph("User.company")
+    //        @EntityGraph("User.company")
     @EntityGraph(attributePaths = {"company", "company.locales"})
-        @Query(value = "select u from User u",
-        countQuery = "select count(distinct u.firstname) from User u")
-        Page<User> findAllBy(Pageable pageable);
+    @Query(value = "select u from User u",
+            countQuery = "select count(distinct u.firstname) from User u")
+    Page<User> findAllBy(Pageable pageable);
+
+    //    List<PersonalInfo> findAllByCompanyId(Integer companyId);
+//    <T> List<T> findAllByCompanyId(Integer companyId, Class<T> clazz);
+    @Query(value = "SELECT lastname, firstname, birth_date birthDate FROM users WHERE company_id = :companyId",
+            nativeQuery = true)
+    List<PersonalInfo2> findAllByCompanyId(Integer companyId);
 }
