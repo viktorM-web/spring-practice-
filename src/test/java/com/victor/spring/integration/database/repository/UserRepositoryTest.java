@@ -28,6 +28,12 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
 
     @Test
+    void checkJdbcTemplate(){
+        var users = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
+        assertThat(users).hasSize(1);
+    }
+
+    @Test
     void checkAuditing() {
         var user = userRepository.findById(1L).get();
         user.setBirthDate(user.getBirthDate().plusYears(1L));
