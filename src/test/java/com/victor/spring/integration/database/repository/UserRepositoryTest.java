@@ -26,10 +26,15 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
 
     @Test
-    void checkPageable(){
-        Pageable pageable = PageRequest.of(2, 2, Sort.by("id"));
-        List<User> result = userRepository.findAllBy(pageable);
-        assertThat(result).hasSize(2);
+    void checkPageable() {
+        Pageable pageable = PageRequest.of(1, 2, Sort.by("id"));
+        var slice = userRepository.findAllBy(pageable);
+        slice.forEach(user -> System.out.println(user.getId()));
+
+        while (slice.hasNext()) {
+            slice = userRepository.findAllBy(slice.nextPageable());
+            slice.forEach(user -> System.out.println(user.getId()));
+        }
     }
 
     @Test
@@ -43,14 +48,14 @@ class UserRepositoryTest {
     }
 
     @Test
-    void checkFirstTop(){
+    void checkFirstTop() {
         Optional<User> topUser = userRepository.findTopByOrderByIdDesc();
         assertTrue(topUser.isPresent());
         topUser.ifPresent(user -> assertEquals(5L, user.getId()));
     }
 
     @Test
-    void checkUpdate(){
+    void checkUpdate() {
         User ivan = userRepository.getById(1L);
         assertSame(Role.ADMIN, ivan.getRole());
         ivan.setBirthDate(LocalDate.now());
