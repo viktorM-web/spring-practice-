@@ -22,13 +22,13 @@ db:
 spring.profiles.active: qa
 
 logging:
-    level:
-      root: INFO
-      com.victor.spring.database.pool.ConnectionPool: INFO
-      org.springframework.jdbc.core: TRACE
-    file:
-      name: viktor.log
-      path: /
+  level:
+    root: INFO
+    com.victor.spring.database.pool.ConnectionPool: INFO
+    org.springframework.jdbc.core: TRACE
+  file:
+    name: viktor.log
+    path: /
 
 spring:
   output:
@@ -41,8 +41,11 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     properties.hibernate:
-        show_sql: true
-        format_sql: true
-        hbm2ddl.auto: validate
+      batch_size: 50
+      fetch_size: 50
+      show_sql: true
+      format_sql: true
+      hbm2ddl.auto: validate
+
 
 
