@@ -21,11 +21,12 @@ public class CompanyService {
     private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
-    public Optional<CompanyReadDto> findById(Integer id){
+    public Optional<CompanyReadDto> findById(Integer id) {
         return companyRepository.findById(id)
-                .map(entity ->{
+                .map(entity -> {
                     eventPublisher.publishEvent(new EntityEvent(entity, READ));
-                    return new CompanyReadDto(entity.getId());
+                    return new CompanyReadDto(entity.getId(),
+                            null);
                 });
     }
 }
