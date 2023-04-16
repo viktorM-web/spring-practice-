@@ -5,6 +5,6 @@
     <title>Hello</title>
 </head>
 <body>
-Hello ${sessionScope.user.username}!
+Hello ${requestScope.userReadDto.username}!
 </body>
 </html>
