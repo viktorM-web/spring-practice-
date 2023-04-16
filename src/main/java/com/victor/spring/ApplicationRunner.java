@@ -1,23 +1,18 @@
 package com.victor.spring;
 
-import com.victor.spring.ioc.Container;
-import com.victor.spring.service.UserService;
+import com.victor.spring.config.DatabaseProperties;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
+@SpringBootApplication
+@ConfigurationPropertiesScan
 public class ApplicationRunner {
 
     public static void main(String[] args) {
-        var container = new Container();
-
-//        var connectionPool = new ConnectionPool();
-//        var userRepository = new UserRepository(connectionPool);
-//        var companyRepository = new CompanyRepository(connectionPool);
-//        var userService = new UserService(userRepository, companyRepository);
-
-//        var connectionPool = container.get(ConnectionPool.class);
-//        var userRepository = container.get(UserRepository.class);
-//        var companyRepository = container.get(CompanyRepository.class);
-
-        var userService = container.get(UserService.class);
-        // TODO: 14.11.2021 userService 
+        var context = SpringApplication.run(ApplicationRunner.class, args);
+        System.out.println(context.getBeanDefinitionCount());
+        System.out.println(context.getBean("pool2"));
+        System.out.println(context.getBean(DatabaseProperties.class));
     }
 }
