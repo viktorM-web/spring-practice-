@@ -2,6 +2,7 @@ package com.victor.spring.service;
 
 import com.victor.spring.database.repository.UserRepository;
 import com.victor.spring.dto.UserCreateEditDto;
+import com.victor.spring.dto.UserFilter;
 import com.victor.spring.dto.UserReadDto;
 import com.victor.spring.mapper.UserCreateEditMapper;
 import com.victor.spring.mapper.UserReadMapper;
@@ -20,6 +21,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
     private final UserCreateEditMapper userCreateEditMapper;
+
+    public List<UserReadDto> findAll(UserFilter filter) {
+        return userRepository.findAllByFilter(filter).stream()
+                .map(userReadMapper::map)
+                .toList();
+    }
 
     public List<UserReadDto> findAll() {
         return userRepository.findAll().stream()
