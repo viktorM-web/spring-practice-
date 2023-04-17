@@ -1,11 +1,15 @@
 package com.victor.spring.http.controller;
 
 import com.victor.spring.database.entity.Role;
+import com.victor.spring.dto.PageResponse;
 import com.victor.spring.dto.UserCreateEditDto;
 import com.victor.spring.dto.UserFilter;
+import com.victor.spring.dto.UserReadDto;
 import com.victor.spring.service.CompanyService;
 import com.victor.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -26,8 +31,10 @@ public class UserController {
     private final CompanyService companyService;
 
     @GetMapping
-    public String findAll(Model model, UserFilter filter) {
-        model.addAttribute("users", userService.findAll(filter));
+    public String findAll(Model model, UserFilter filter, Pageable pageable) {
+        var page = userService.findAll(filter, pageable);
+        model.addAttribute("users", PageResponse.of(page));
+        model.addAttribute("filter", filter);
         return "user/users";
     }
 
@@ -54,7 +61,7 @@ public class UserController {
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
     public String create(UserCreateEditDto user, RedirectAttributes redirectAttributes) {
-        if(true){
+        if (true) {
             redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/users/registration";
         }
@@ -72,7 +79,7 @@ public class UserController {
     //    @DeleteMapping("/{id}")
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
-        if(userService.delete(id)){
+        if (userService.delete(id)) {
             new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "redirect:/users";
