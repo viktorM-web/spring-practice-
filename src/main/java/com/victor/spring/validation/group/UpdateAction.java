@@ -1,4 +1,4 @@
 package com.victor.spring.validation.group;
 
-public class UpdateAction {
+public interface UpdateAction {
 }
