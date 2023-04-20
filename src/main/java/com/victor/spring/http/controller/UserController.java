@@ -4,7 +4,6 @@ import com.victor.spring.database.entity.Role;
 import com.victor.spring.dto.PageResponse;
 import com.victor.spring.dto.UserCreateEditDto;
 import com.victor.spring.dto.UserFilter;
-import com.victor.spring.dto.UserReadDto;
 import com.victor.spring.service.CompanyService;
 import com.victor.spring.service.UserService;
 import com.victor.spring.validation.group.CreateAction;
@@ -24,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import javax.validation.groups.Default;
-
 
 @Controller
 @RequestMapping("/users")

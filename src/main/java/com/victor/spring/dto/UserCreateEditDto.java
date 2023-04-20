@@ -2,7 +2,7 @@ package com.victor.spring.dto;
 
 import com.victor.spring.database.entity.Role;
 import com.victor.spring.validation.UserInfo;
-import com.victor.spring.validation.group.CreateAction;
+import com.victor.spring.validation.group.UpdateAction;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @Value
 @FieldNameConstants
-@UserInfo(groups = CreateAction.class)
+@UserInfo(groups = UpdateAction.class)
 public class UserCreateEditDto {
 
     @Email
