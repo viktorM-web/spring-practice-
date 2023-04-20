@@ -1,6 +1,5 @@
 package com.victor.spring.integration.http.controller;
 
-import com.victor.spring.dto.UserCreateEditDto;
 import com.victor.spring.integration.IntegrationTestBase;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
