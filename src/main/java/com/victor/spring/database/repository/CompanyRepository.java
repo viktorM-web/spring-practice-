@@ -1,12 +1,21 @@
 package com.victor.spring.database.repository;
 
-import com.victor.spring.database.pool.ConnectionPool;
+import com.victor.spring.database.entity.Company;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public class CompanyRepository {
+import java.util.List;
+import java.util.Optional;
 
-    private final ConnectionPool connectionPool;
+public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
-    public CompanyRepository(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
-    }
+    //optional, Entity, Future
+    @Query("select c from Company c " +
+           "join fetch c.locales cl " +
+           "where c.name = :name2")
+    Optional<Company> findByName(@Param("name2") String name);
+
+    //Collection, Stream(batch, close)
+    List<Company> findAllByNameContainingIgnoreCase(String fragment);
 }
