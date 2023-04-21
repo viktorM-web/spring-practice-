@@ -46,6 +46,7 @@ public class UserController {
         return userService.findById(id)
                 .map(user -> {
                     model.addAttribute("user", user);
+                    model.addAttribute("roles", Role.values());
                     model.addAttribute("companies", companyService.findAll());
                     return "user/user";
                 })
