@@ -7,6 +7,7 @@ import com.victor.spring.integration.IntegrationTestBase;
 import com.victor.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -45,11 +46,13 @@ public class UserServiceIT extends IntegrationTestBase {
     void create() {
         UserCreateEditDto userCreateEditDto = new UserCreateEditDto(
                 "test@gmail.com",
+                "test",
                 LocalDate.now(),
                 "test",
                 "test",
                 Role.ADMIN,
-                COMPANY_1
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0])
         );
         UserReadDto actualResult = userService.create(userCreateEditDto);
 
@@ -65,11 +68,13 @@ public class UserServiceIT extends IntegrationTestBase {
     void update() {
         UserCreateEditDto userCreateEditDto = new UserCreateEditDto(
                 "test@gmail.com",
+                "test",
                 LocalDate.now(),
                 "test",
                 "test",
                 Role.ADMIN,
-                COMPANY_1
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0])
         );
         var actualResult = userService.update(USER_1, userCreateEditDto);
         assertTrue(actualResult.isPresent());
