@@ -1,10 +1,12 @@
 package com.victor.spring.aop;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Aspect
@@ -15,15 +17,15 @@ public class FirstAspect {
         @within - check annotation on the class level
      */
     @Pointcut("@within(org.springframework.stereotype.Controller)")
-    public void isControllerLayer(){
+    public void isControllerLayer() {
 
     }
 
     /*
-        within - check annotation on the class level
+        within - check class type name
      */
     @Pointcut("within(com.victor.spring.service.*Service)")
-    public void isServiceLayer(){
+    public void isServiceLayer() {
     }
 
     /*
@@ -32,14 +34,14 @@ public class FirstAspect {
      */
     @Pointcut("this(org.springframework.data.repository.Repository)")
 //    @Pointcut("target(org.springframework.data.repository.Repository)")
-    public void isRepositoryLayer(){
+    public void isRepositoryLayer() {
     }
 
     /*
     @annotation - check annotation on method level
      */
     @Pointcut("isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
-    public void hasGetMapping(){
+    public void hasGetMapping() {
     }
 
     /*
@@ -48,7 +50,8 @@ public class FirstAspect {
     .. - 0+ any params type
      */
     @Pointcut("isControllerLayer() && args(org.springframework.ui.Model,..)")
-    public void hasModelParam(){}
+    public void hasModelParam() {
+    }
 
     /*
     @args - check annotation on the param type
@@ -56,23 +59,35 @@ public class FirstAspect {
     .. - 0+ any params type
      */
     @Pointcut("isControllerLayer() && @args(com.victor.spring.validation.UserInfo,..)")
-    public void hasUserInfoParamAnnotation(){}
+    public void hasUserInfoParamAnnotation() {
+    }
 
     /*
     bean - check bean name
      */
     @Pointcut("bean(*Service)")
-    public void isServiceLayerBean(){}
+    public void isServiceLayerBean() {
+    }
 
     /*
     execution(modifiers-pattern? ret-type-pattern declaring-type-pattern?name-pattern(param-pattern) throws-pattern?)
      */
     @Pointcut("execution(public * com.victor.spring.service.*Service.findById(*))")
-    public void anyFindByIdServiceMethod(){}
+    public void anyFindByIdServiceMethod() {
+    }
 
-    @Before("anyFindByIdServiceMethod()")
+    @Before(value = "anyFindByIdServiceMethod()" +
+                    "&& args(id)" +
+                    "&& target(service)" +
+                    "&& this(serviceProxy)" +
+                    "&& @within(transactional)",
+            argNames = "joinPoint,id,service,serviceProxy,transactional")
 //    @Before("execution(public * com.victor.spring.service.*Service.findById(*))")
-    public void addLogging() {
-        log.info("invoke findById method");
+    public void addLogging(JoinPoint joinPoint,
+                           Object id,
+                           Object service,
+                           Object serviceProxy,
+                           Transactional transactional) {
+        log.info("invoke findById method in class {}, with id {}", service, id);
     }
 }
