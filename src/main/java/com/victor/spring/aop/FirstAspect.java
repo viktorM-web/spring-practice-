@@ -1,10 +1,12 @@
 package com.victor.spring.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.data.repository.Repository;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Aspect
 @Component
 public class FirstAspect {
@@ -65,6 +67,12 @@ public class FirstAspect {
     /*
     execution(modifiers-pattern? ret-type-pattern declaring-type-pattern?name-pattern(param-pattern) throws-pattern?)
      */
-    @Pointcut("execution(public * com.victor.spring.service.*Service.findById(*)")
+    @Pointcut("execution(public * com.victor.spring.service.*Service.findById(*))")
     public void anyFindByIdServiceMethod(){}
+
+    @Before("anyFindByIdServiceMethod()")
+//    @Before("execution(public * com.victor.spring.service.*Service.findById(*))")
+    public void addLogging() {
+        log.info("invoke findById method");
+    }
 }
